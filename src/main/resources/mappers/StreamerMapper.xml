@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Streamer">
+
+  <!-- 전체 조회 -->
+  <select id="getList" resultType="com.example.demo.streamer.StreamerDTO">
+    SELECT
+      name,
+      platform,
+      channel_id AS channelId,
+      COALESCE(NULLIF(profile_image, ''), '/images/dummy/streamers/default.jpg') AS profileImage
+    FROM streamer
+    ORDER BY name ASC
+  </select>
+
+  <!-- 단일 조회: dto로 받기 (dto.name 사용) -->
+  <select id="getOne" parameterType="com.example.demo.streamer.StreamerDTO"
+          resultType="com.example.demo.streamer.StreamerDTO">
+    SELECT
+      name,
+      platform,
+      channel_id AS channelId,
+      COALESCE(NULLIF(profile_image, ''), '/images/dummy/streamers/default.jpg') AS profileImage
+    FROM streamer
+    WHERE name = #{name}
+  </select>
+
+  <!-- 단일 조회: name(String)으로 받기 -->
+  <select id="getOneByName" parameterType="string"
+          resultType="com.example.demo.streamer.StreamerDTO">
+    SELECT
+      name,
+      platform,
+      channel_id AS channelId,
+      COALESCE(NULLIF(profile_image, ''), '/images/dummy/streamers/default.jpg') AS profileImage
+    FROM streamer
+    WHERE name = #{value}
+  </select>
+
+  <!-- 등록 -->
+  <insert id="insert" parameterType="com.example.demo.streamer.StreamerDTO">
+    INSERT INTO streamer (name, platform, channel_id, profile_image)
+    VALUES (#{name}, #{platform}, #{channelId}, #{profileImage})
+  </insert>
+
+  <!-- 삭제 -->
+  <delete id="delete" parameterType="com.example.demo.streamer.StreamerDTO">
+    DELETE FROM streamer
+    WHERE name = #{name}
+  </delete>
+
+  <!-- 프로필 이미지 업데이트 -->
+  <update id="updateProfileImage" parameterType="com.example.demo.streamer.StreamerDTO">
+    UPDATE streamer
+    SET profile_image = #{profileImage}
+    WHERE name = #{name}
+  </update>
+
+  <!-- 유튜브 프로필 이미지 동기화 대상 -->
+<select id="getYouTubeNeedImage" resultType="com.example.demo.streamer.StreamerDTO">
+  <![CDATA[
+    SELECT name, channel_id AS channelId
+    FROM streamer
+    WHERE platform = 'youtube'
+      AND channel_id IS NOT NULL AND channel_id <> ''
+      AND (profile_image IS NULL OR profile_image = '')
+    ORDER BY name ASC
+  ]]>
+</select>
+
+
+</mapper>

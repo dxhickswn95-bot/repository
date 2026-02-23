@@ -1,0 +1,223 @@
+@charset "UTF-8";
+
+/* ===============================
+   Page Layout
+================================ */
+.video-wrap {
+  padding-top: 30px;
+}
+
+/* ✅ 뒤로가기 영역 간격 조절 */
+.back-row {
+  margin-top: 10px;
+  margin-bottom: 18px;
+}
+
+/* ===============================
+   Player Area (Poster -> Iframe)
+   - poster(썸네일) + 가운데 재생 버튼
+   - 클릭하면 iframe 보여주기
+================================ */
+.player-section {
+  margin-top: 10px;
+}
+
+.player-box {
+  position: relative;
+  width: 100%;
+
+  /* ✅ 비율 유지(권장) */
+  aspect-ratio: 16 / 9;
+
+  border-radius: 14px;
+  overflow: hidden;
+
+  background: #000;
+  border: 1px solid #eee;
+
+  transform: translateZ(0); /* hover 깜빡임 방지 */
+}
+
+/* ✅ iframe: 클릭 전에는 숨김 (JS에서 display:block으로 전환) */
+.player-iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: none;
+}
+
+/* ✅ 썸네일 포스터(배경 이미지) */
+.player-poster {
+  position: absolute;
+  inset: 0;
+
+  background-size: cover;
+  background-position: center;
+
+  cursor: pointer;
+}
+
+/* ✅ 포스터 위에 영상 느낌 그라데이션 */
+.player-poster::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.28),
+    rgba(0, 0, 0, 0.06)
+  );
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+  opacity: 1;
+}
+
+/* ✅ 가운데 재생 버튼 */
+.play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.55);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+
+  cursor: pointer;
+  transition: transform 0.22s ease, background 0.22s ease;
+}
+
+/* ✅ 삼각형(재생 아이콘) */
+.play-btn::before {
+  content: "";
+  display: block;
+  margin-left: 6px;
+
+  width: 0;
+  height: 0;
+  border-left: 24px solid #fff;
+  border-top: 16px solid transparent;
+  border-bottom: 16px solid transparent;
+}
+
+/* ✅ hover 효과: 살짝 확대 + 어둡게 + 버튼 확대 */
+.player-poster:hover {
+  filter: brightness(0.92);
+}
+
+.player-poster:hover .play-btn {
+  transform: translate(-50%, -50%) scale(1.06);
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.player-poster:active .play-btn {
+  transform: translate(-50%, -50%) scale(1.02);
+}
+
+/* ===============================
+   Meta Row (Streamer Button + Views)
+================================ */
+.meta-row{
+  display: flex;
+  flex-direction: column; /* ✅ 세로 2줄 */
+  gap: 10px;
+}
+
+.meta{
+  width: 100%;            /* ✅ 조회수는 한 줄 전체 */
+  display: flex;
+  justify-content: flex-end; /* 오른쪽 정렬(원하면 left로) */
+}
+
+.streamer-btn-row{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;        /* ✅ 버튼 많으면 줄바꿈 */
+  gap: 8px;
+}
+
+.streamer-btn{
+  white-space: nowrap;    /* ✅ 버튼 글자 줄바꿈 방지 */
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+
+/* ===============================
+   Comment Preview
+================================ */
+.comment-preview {
+  margin-top: 24px;
+}
+
+.comment-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.comment-count {
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 12px;
+}
+
+.comment-item {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 14px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+
+.comment-user {
+  font-weight: 700;
+  color: #222;
+  font-size: 14px;
+}
+
+.comment-content {
+  color: #333;
+  font-size: 14px;
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+.comment-empty {
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px dashed #ddd;
+  color: #666;
+  background: #fafafa;
+  font-size: 14px;
+}
+
+/* ===============================
+   Responsive
+================================ */
+@media (max-width: 640px) {
+  .play-btn {
+    width: 68px;
+    height: 68px;
+  }
+
+  .play-btn::before {
+    border-left-width: 20px;
+    border-top-width: 13px;
+    border-bottom-width: 13px;
+  }
+
+  .meta-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

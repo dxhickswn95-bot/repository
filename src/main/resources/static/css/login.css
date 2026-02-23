@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+.login-wrap {
+  min-height: calc(100vh - 90px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-card {
+  width: 520px;
+  padding: 36px 30px;
+  border-radius: 14px;
+  text-align: center;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+}
+
+.login-title { margin: 0 0 10px; font-size: 34px; font-weight: 900; }
+.login-sub { margin: 0 0 22px; color: #666; font-weight: 700; }
+
+.kakao-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 52px;
+  border-radius: 10px;
+  text-decoration: none;
+  background: #ffe500;
+  color: #111;
+  font-weight: 900;
+}
