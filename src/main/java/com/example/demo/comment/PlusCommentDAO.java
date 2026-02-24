@@ -22,7 +22,7 @@ public class PlusCommentDAO {
     	    "SELECT c.comment_id, c.video_id, c.member_id, m.nickname, m.profile_image, " +
     	    "       c.content, c.created_at " +
     	    "FROM comments c " +
-    	    "JOIN `member` m ON c.member_id = m.member_id " +
+    	    "JOIN member m ON c.member_id = m.member_id " +
     	    "WHERE c.video_id = ? " +
     	    "ORDER BY c.created_at DESC";
 
@@ -39,7 +39,7 @@ public class PlusCommentDAO {
     	    "SELECT c.comment_id, c.video_id, c.member_id, m.nickname, m.profile_image, " +
     	    "       c.content, c.created_at " +
     	    "FROM comments c " +
-    	    "JOIN `member` m ON c.member_id = m.member_id " +
+    	    "JOIN member m ON c.member_id = m.member_id " +
     	    "ORDER BY c.created_at DESC " +
     	    "LIMIT ?";
 
