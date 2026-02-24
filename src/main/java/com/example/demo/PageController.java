@@ -114,32 +114,7 @@ public class PageController {
         return "login";
     }
 
-    @GetMapping
-    public String comments(
-            @RequestParam(value = "videoId", defaultValue = "1") int videoId,
-            Model model,
-            HttpSession session) {
-
-        // ✅ 세션 값 준비 (JSP에서 바로 쓰게)
-        MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
-        String role = (String) session.getAttribute("loginRole");
-        if (role == null) {
-            role = "USER";
-            session.setAttribute("loginRole", role);
-        }
-
-        model.addAttribute("videoId", videoId);
-
-        List<CommentDTO> list = commentService.getCommentListByVideoId(videoId);
-        model.addAttribute("commentList", list);
-        model.addAttribute("commentCount", list.size());
-
-        // (선택) JSP에서 보기 편하게 모델에도 내려줄 수 있음
-        model.addAttribute("loginUser", loginUser);
-        model.addAttribute("loginRole", role);
-
-        return "comments";
-    }
+    
 
     @GetMapping("/video")
     public String video(@RequestParam int videoId,
