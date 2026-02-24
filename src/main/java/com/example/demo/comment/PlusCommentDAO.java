@@ -19,12 +19,12 @@ public class PlusCommentDAO {
 
     // video_id 기준 댓글 목록 (JOIN)
     private static final String SELECT_BY_VIDEO =
-        "SELECT c.comment_id, c.video_id, c.member_id, m.nickname, m.profile_image, " +
-        "       c.content, c.created_at " +
-        "FROM COMMENTS c " +
-        "JOIN MEMBER m ON c.member_id = m.member_id " +
-        "WHERE c.video_id = ? " +
-        "ORDER BY c.created_at DESC";
+    	    "SELECT c.comment_id, c.video_id, c.member_id, m.nickname, m.profile_image, " +
+    	    "       c.content, c.created_at " +
+    	    "FROM comments c " +
+    	    "JOIN `member` m ON c.member_id = m.member_id " +
+    	    "WHERE c.video_id = ? " +
+    	    "ORDER BY c.created_at DESC";
 
     // 댓글 작성
     private static final String INSERT =
@@ -36,12 +36,12 @@ public class PlusCommentDAO {
 
     // 최신 댓글 limit (옵션)
     private static final String SELECT_RECENT_LIMIT =
-        "SELECT c.comment_id, c.video_id, c.member_id, m.nickname, m.profile_image, " +
-        "       c.content, c.created_at " +
-        "FROM COMMENTS c " +
-        "JOIN MEMBER m ON c.member_id = m.member_id " +
-        "ORDER BY c.created_at DESC " +
-        "LIMIT ?";
+    	    "SELECT c.comment_id, c.video_id, c.member_id, m.nickname, m.profile_image, " +
+    	    "       c.content, c.created_at " +
+    	    "FROM comments c " +
+    	    "JOIN `member` m ON c.member_id = m.member_id " +
+    	    "ORDER BY c.created_at DESC " +
+    	    "LIMIT ?";
 
     // (옵션) 댓글 1개 조회
     private static final String SELECT_ONE =
