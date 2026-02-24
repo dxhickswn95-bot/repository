@@ -36,6 +36,11 @@ public class PageController {
         this.commentService = commentService;
         this.favoriteService = favoriteService;
     }
+    
+    @GetMapping("/")
+    public String root() {
+        return "redirect:/main";
+    }
 
     @GetMapping("/main")
     public String main(Model model) {
